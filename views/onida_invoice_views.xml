@@ -1,0 +1,127 @@
+<odoo>
+  <data>
+    <!-- explicit list view definition -->
+    
+    <record model="ir.ui.view" id="onida_invoice_list">
+      <field name="name">onida invoice list</field>
+      <field name="model">onida_apps.invoice</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="invoice_no"/>
+          <field name="invoice_date"/>
+          <field name="customer_id"/>
+          <field name="product_id"/>
+        </tree>
+      </field>
+    </record>
+
+    <record model="ir.ui.view" id="onida_tax_list">
+      <field name="name">onida tax list</field>
+      <field name="model">onida_apps.tax</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="tax_no"/>
+          <field name="tax_name"/>
+          <field name="tax_value"/>
+        </tree>
+      </field>
+    </record>
+
+    <!-- explicit form view definition -->
+
+    <record model="ir.ui.view" id="onida_invoice_form">
+      <field name="name">onida invoice form</field>
+      <field name="model">onida_apps.invoice</field>
+      <field name="arch" type="xml">
+        <form>
+            <sheet>
+             <h4>Invoice Details</h4>
+                <group>
+                    <group>
+		              <field name="invoice_no"/>
+		              <field name="invoice_date"/>
+	                  <field name="customer_id"/>
+	                  <field name="email" widget="email"/>
+	                  <field name="phone" widget="phone"/>
+                      <field name="street_number" placeholder="House No"/>
+                      <field name="street_name" placeholder="Street Address 1"/>
+                      <field name="street_name2" placeholder="Street Address 2"/>
+                      <field name="city" placeholder="City"/>
+                      <field name="country" placeholder="Country"/>
+                      <field name="zip" placeholder="Zip"/>
+                    </group>
+                    <group>
+                      <field name="product_id"/>
+                      <field name="product_ref"/>
+	                  <field name="barcode"/>
+	                  <field name="price"/>
+	                  <field name="currency_id"/>
+	                  <field name="tax_ids"/>
+		            </group>
+		        </group>
+		         <notebook>
+                <page name="notes" string="Internal Notes">
+                       <field name="notes" placeholder="Define Terms and Conditions..."/>
+                </page>
+                </notebook>
+            </sheet>
+            <div class="oe_chatter">
+               <field name="message_ids" widget="mail_thread" />
+            </div>
+        </form>
+      </field>
+    </record>
+
+    <!-- explicit tax form view definition -->
+
+     <record model="ir.ui.view" id="onida_tax_form">
+      <field name="name">onida tax form</field>
+      <field name="model">onida_apps.tax</field>
+      <field name="arch" type="xml">
+        <form>
+            <sheet>
+                <group>
+                  <field name="tax_no"/>
+                  <field name="tax_name"/>
+                  <field name="tax_value"/>
+                </group>
+                 <notebook>
+                <page name="internal_notes" string="Internal Notes">
+                       <field name="notes" placeholder="Define Terms and Conditions..."/>
+                </page>
+                </notebook>
+            </sheet>
+            <div class="oe_chatter">
+               <field name="message_ids" widget="mail_thread" />
+            </div>
+        </form>
+      </field>
+    </record>
+
+    <!-- actions opening views on models -->
+
+    <record model="ir.actions.act_window" id="onida_invoice_action_window">
+      <field name="name">Invoice</field>
+      <field name="res_model">onida_apps.invoice</field>
+      <field name="view_mode">tree,form</field>
+      <field name="help" type="html">
+          <p class="o_view_nocontent_smiling_face">Add a new Invoice</p>
+      </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="onida_tax_action_window">
+      <field name="name">Tax</field>
+      <field name="res_model">onida_apps.tax</field>
+      <field name="view_mode">tree,form</field>
+      <field name="help" type="html">
+          <p class="o_view_nocontent_smiling_face">Add a new Tax</p>
+      </field>
+    </record>
+
+    <!-- menu categories -->
+    
+    <menuitem name="Invoice" id="onida_invoice_menu" parent="onida_apps_menu_root" sequence="4"/>
+    <menuitem name="Invoice" id="onida_invoice_menu1" parent="onida_invoice_menu" action="onida_invoice_action_window" sequence="1"/>
+    <menuitem name="Tax" id="onida_tax_menu" parent="onida_invoice_menu" action="onida_tax_action_window"/>
+  </data>
+</odoo>

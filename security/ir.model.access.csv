@@ -1,0 +1,6 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_onida_apps_order,onida_apps.order,model_onida_apps_order,,1,1,1,1
+access_onida_apps_customer,onida_apps.customer,model_onida_apps_customer,,1,1,1,1
+access_onida_apps_product,onida_apps.product,model_onida_apps_product,,1,1,1,1
+access_onida_apps_invoice,onida_apps.invoice,model_onida_apps_invoice,,1,1,1,1
+access_onida_apps_tax,onida_apps.tax,model_onida_apps_tax,,1,1,1,1

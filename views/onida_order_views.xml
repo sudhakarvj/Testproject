@@ -1,0 +1,99 @@
+<odoo>
+  <data>
+    <!-- explicit list view definition -->
+    
+    <record model="ir.ui.view" id="onida_order_list">
+      <field name="name">onida order list</field>
+      <field name="model">onida_apps.order</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="customer_id"/>
+          <field name="customer_ref"/>
+          <field name="product_ids" widget="many2many_tags"/>
+          <field name="date_order"/>
+        </tree>
+      </field>
+    </record>
+   
+
+    <!-- explicit form view definition -->
+    
+    <record model="ir.ui.view" id="onida_order_form">
+      <field name="name">onida order form</field>
+      <field name="model">onida_apps.order</field>
+      <field name="arch" type="xml">
+        <form>
+            <sheet>
+            <h5>Request for Order</h5>
+               <h3> <field name="sequence_id"/></h3>
+                <group name="invoice_data">
+		          <field name="customer_id"/>
+		          <field name="customer_ref"/>
+		          <field name="customer_mobile"/>
+		          <field name="product_ids" widget="many2many_tags"/>
+		          <field name="date_order"/>
+		        </group>
+             <notebook>
+                <page name="Product List" string="Products">
+                       <field name="product_line_ids"/>
+                </page>
+                <page name="internal_notes" string="Other Information">
+                       <field name="notes" placeholder="Define your terms and conditions..."/>
+                </page>
+                </notebook>
+            </sheet>
+            <div class="oe_chatter">
+               <field name="message_ids" widget="mail_thread" />
+            </div>
+        </form>
+      </field>
+    </record>
+
+    <record id="seq_order" model="ir.sequence">
+            <field name="name">order sequence</field>
+            <field name="code">order.id</field>
+            <field name="prefix">SO</field>
+            <field name="padding">5</field>
+        </record>
+    <!-- actions opening views on models -->
+
+    <record model="ir.actions.act_window" id="onida_order_action_window">
+      <field name="name">Requests for Order</field>
+      <field name="res_model">onida_apps.order</field>
+      <field name="view_mode">tree,form</field>
+      <field name="help" type="html">
+           <p class="o_view_nocontent_smiling_face">Add a new customer</p>
+       </field>
+    </record>
+   
+
+    <!-- server action to the one above -->
+    <!--
+    <record model="ir.actions.server" id="onida_apps.action_server">
+      <field name="name">onida_apps server</field>
+      <field name="model_id" ref="model_onida_apps_onida_apps"/>
+      <field name="state">code</field>
+      <field name="code">
+        action = {
+          "type": "ir.actions.act_window",
+          "view_mode": "tree,form",
+          "res_model": self._name,
+        }
+      </field>
+    </record>
+    -->
+
+    <!-- menu categories -->
+    
+    <menuitem name="Order" id="onida_order_menu" parent="onida_apps_menu_root" action="onida_order_action_window" sequence="3"/>
+   <!--  <menuitem name="Menu 2" id="onida_apps.menu_2" parent="onida_apps.menu_root"/> -->
+   
+    <!-- actions -->
+    <!--
+    <menuitem name="List" id="onida_apps.menu_1_list" parent="onida_apps.menu_1"
+              action="onida_apps.action_window"/>
+    <menuitem name="Server to list" id="onida_apps" parent="onida_apps.menu_2"
+              action="onida_apps.action_server"/>
+    -->
+  </data>
+</odoo>

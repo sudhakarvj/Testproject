@@ -1,0 +1,14 @@
+<odoo>
+  <data>
+    <record model="ir.ui.view" id="onida_order_inherit_form">
+      <field name="name">onida order inherit form</field>
+      <field name="model">onida_apps.order</field>
+      <field name="inherit_id" ref="onida_apps.onida_order_form"/>
+      <field name="arch" type="xml">
+        <xpath expr="//group[@name='invoice_data']/field[@name='date_order']" position="after">
+                    <field name="payment_mode" />
+         </xpath>  
+      </field>
+    </record>
+  </data>
+</odoo>

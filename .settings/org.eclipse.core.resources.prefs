@@ -1,0 +1,10 @@
+eclipse.preferences.version=1
+encoding//models/__init__.py=utf-8
+encoding//models/onida_apps.py=utf-8
+encoding//models/onida_apps_inherit.py=utf-8
+encoding//models/onida_invoice.py=utf-8
+encoding//models/onida_order.py=utf-8
+encoding//models/onida_order_inherit.py=utf-8
+encoding//models/onida_product.py=utf-8
+encoding/__init__.py=utf-8
+encoding/__manifest__.py=utf-8

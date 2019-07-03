@@ -1,0 +1,138 @@
+<odoo>
+  <data>
+    <!-- explicit list view definition -->
+
+    <record model="ir.ui.view" id="onida_apps_list">
+      <field name="name">onida_apps customer list</field>
+      <field name="model">onida_apps.customer</field>
+      <field name="arch" type="xml">
+        <tree decoration-info="country=='India'">
+          <field name="customer_name"/>
+          <field name="street_number"/>
+          <field name="street_name"/>
+          <field name="street_name2"/>
+          <field name="city"/>
+          <field name="country"/>
+          <field name="zip"/>
+          <field name="email"/>
+          <field name="mobile"/>
+          <field name="lang"/>
+        </tree>
+      </field>
+    </record>
+
+    <!-- explicit form view definition -->
+
+    <record model="ir.ui.view" id="onida_apps_form">
+      <field name="name">onida_apps customer form</field>
+      <field name="model">onida_apps.customer</field>
+      <field name="arch" type="xml">
+         <form>
+            <sheet>
+              <div>
+                <field name="customer_image" widget="image" class="oe_avatar" />
+                  <div class="oe_title">
+                    <h1>
+                        <field name="customer_name" placeholder="Name" />
+                    </h1>
+                  </div>
+              </div>
+                <group>
+                    <group>
+                    <label for="street" string="Address"/>
+                    <div class="o_address_format">
+			          <field name="street_number" placeholder="House No"/>
+			          <br/>
+			          <field name="street_name" placeholder="Street Address 1"/>
+			          <br/>
+			          <field name="street_name2" placeholder="Street Address 2"/>
+			          <br/>
+			          <field name="city" placeholder="City"/>
+			          <br/>
+			          <field name="country" placeholder="Country"/>
+			          <br/>
+			          <field name="zip" placeholder="Zip"/>
+			       </div>
+		          </group>
+		          <group>
+		              <field name="dob"/>
+		              <field name="age"/>
+		              <field name="email" widget="email"/>
+		              <field name="phone" widget="phone"/>
+		              <field name="mobile" widget="phone"/>
+		              <field name="lang"/>
+		          </group>
+		        </group>
+		          <notebook>
+		              <page name="internal_notes" string="Internal Notes">
+                      <field name="comment" placeholder="Internal note..."/>
+                      </page>
+                      <page string="About">
+                        This is notebook example
+                      </page>
+                  </notebook>
+		    </sheet>
+		    <div class="oe_chatter">
+               <field name="message_ids" widget="mail_thread" />
+            </div>
+        </form>
+      </field>
+    </record>
+
+    <!-- explicit search view definition -->
+    <record model="ir.ui.view" id="onida_apps_search">
+            <field name="name">customer search view</field>
+            <field name="model">onida_apps.customer</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="country"/>
+                    <field name="city"/>
+                    <field name="zip"/>
+                </search>
+            </field>
+    </record>
+
+    <!-- actions opening views on models -->
+
+    <record model="ir.actions.act_window" id="onida_apps_action_window">
+      <field name="name">Customers</field>
+      <field name="res_model">onida_apps.customer</field>
+      <field name="view_mode">tree,form</field>
+       <field name="help" type="html">
+               <p class="o_view_nocontent_smiling_face">Add a new customer</p>
+       </field>
+    </record>
+
+    <!-- server action to the one above -->
+    <!--
+    <record model="ir.actions.server" id="onida_apps.action_server">
+      <field name="name">onida_apps server</field>
+      <field name="model_id" ref="model_onida_apps_onida_apps"/>
+      <field name="state">code</field>
+      <field name="code">
+        action = {
+          "type": "ir.actions.act_window",
+          "view_mode": "tree,form",
+          "res_model": self._name,
+        }
+      </field>
+    </record>
+    -->
+
+    <!-- Top menu item -->
+    
+    <menuitem name="ONIDA" id="onida_apps_menu_root" action="onida_apps_action_window"/>
+   
+    <!-- menu categories -->
+    
+    <menuitem name="Customer" id="onida_apps_customer_menu" parent="onida_apps_menu_root" action="onida_apps_action_window" sequence="1"/>
+
+    <!-- actions -->
+    <!--
+    <menuitem name="List" id="onida_apps.menu_1_list" parent="onida_apps.menu_1"
+              action="onida_apps.action_window"/>
+    <menuitem name="Server to list" id="onida_apps" parent="onida_apps.menu_2"
+              action="onida_apps.action_server"/>
+    -->
+  </data>
+</odoo>
