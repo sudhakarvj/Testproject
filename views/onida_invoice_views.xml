@@ -124,7 +124,7 @@
       </field>
     </record>
 
-    <!-- actions opening views on models -->
+    <!-- actions opening invoice views on models -->
 
     <record model="ir.actions.act_window" id="onida_invoice_action_window">
       <field name="name">Invoice</field>
@@ -134,7 +134,7 @@
           <p class="o_view_nocontent_smiling_face">Add a new Invoice</p>
       </field>
     </record>
-
+    <!-- actions opening tax views on models -->
     <record model="ir.actions.act_window" id="onida_tax_action_window">
       <field name="name">Tax</field>
       <field name="res_model">onida_apps.tax</field>
