@@ -1,6 +1,6 @@
 <odoo>
   <data>
-    <!-- explicit list view definition -->
+    <!-- explicit Tree view definition -->
     
     <record model="ir.ui.view" id="onida_product_list">
       <field name="name">onida product list</field>
@@ -19,7 +19,7 @@
       </field>
     </record>
 
-    <!-- explicit form view definition -->
+    <!-- explicit Form view definition -->
 
     <record model="ir.ui.view" id="onida_product_form">
       <field name="name">onida product form</field>
@@ -58,12 +58,70 @@
       </field>
     </record>
 
+    <!-- explicit Search view definition -->
+    <record model="ir.ui.view" id="onida_product_search">
+            <field name="name">product search view</field>
+            <field name="model">onida_apps.product</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="product_name"/>
+                    <field name="product_ref"/>
+                    <field name="tax_ids"/>
+                    <filter string="Price &lt; 1000" name="price_under_1000" domain="[('price', '&lt;', 1000)]"/>
+                    <filter string="Price &gt;= 1000" name="price_above_1000" domain="[('price', '&gt;=', 1000)]"/>
+                    <group expand="0" string="group by">
+                        <filter string="Barcode" name="groupby_barcode" context="{'group_by':'barcode'}"/>
+                    </group>
+                </search>
+            </field>
+    </record>
+
+    <!-- explicit Kanban view definition -->
+    <record id="onida_product_kanban" model='ir.ui.view'>
+        <field name="name">product kanban view</field>
+        <field name="model">onida_apps.product</field>
+        <field name="arch" type="xml">
+            <kanban>
+                <field name="id"/>
+                <field name="product_name"/>
+                <field name="product_ref" />
+                <field name="barcode" />
+                <field name="currency_id" invisible="1"/>
+                <field name="price"/>
+                <field name="product_image" />
+                 <templates>
+                    <t t-name="kanban-box">
+                        <div t-attf-class="oe_kanban_global_click">
+                            <div class="oe_kanban_details">
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <div class="o_kanban_image">
+                                            <img t-att-src="kanban_image('onida_apps.product','product_image',record.id.raw_value)" alt="product image"/>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <strong><field name="product_name"/></strong><br/>
+                                        <field name="product_ref" /><br/>
+                                        <field name="barcode" /><br/>
+                                         <field name="currency_id" invisible="1"/>
+                                        <field name="price" widget="monetary"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
     <!-- actions opening views on models -->
     
     <record model="ir.actions.act_window" id="onida_product_action_window">
       <field name="name">Products</field>
       <field name="res_model">onida_apps.product</field>
-      <field name="view_mode">tree,form</field>
+      <field name="view_mode">kanban,tree,form,search,graph</field>
+     <!--  <field name="context">{'group_by':'product_id'}</field> -->
       <field name="help" type="html">
           <p class="o_view_nocontent_smiling_face">Add a new customer</p>
       </field>

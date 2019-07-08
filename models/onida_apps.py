@@ -2,12 +2,15 @@
 
 from odoo import models, fields, api
 import datetime
+from odoo.exceptions import ValidationError
 
 class CreateCustomer(models.Model):
     _name = 'onida_apps.customer'
     _description="Customer Creation"
     _inherit = ['mail.thread']
     _rec_name='customer_name'
+    _sql_constraints=[('email_unique','UNIQUE(email)',"The email must be unique"),
+                      ('age_check','CHECK(age>=18)',"The age must be above 18")]
 
     customer_name = fields.Char(required=True, translate=True, track_visibility='always', track_sequence=1)
     street_number=fields.Char("Address",help='House number')
@@ -32,3 +35,8 @@ class CreateCustomer(models.Model):
                 records.birth_year = records.dob.year
                 records.age =  records.current_year - records.dob.year
 
+    @api.constrains('mobile')
+    def _check_mobile(self):
+        for record in self:
+            if len(record.mobile)!=10:
+                raise ValidationError("Please enter valid mobile number")

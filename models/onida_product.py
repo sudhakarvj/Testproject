@@ -24,6 +24,7 @@ class CreateProduct(models.Model):
     is_available = fields.Boolean('is Product available?')
     product_image=fields.Binary()
     product_id=fields.Many2one('onida_apps.order',ondelete="restrict")
+    color=fields.Integer()
 
     @api.onchange('tax_ids')
     def on_change_price(self):

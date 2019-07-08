@@ -10,6 +10,7 @@ class Createinvoice(models.Model):
 
     invoice_no=fields.Integer(track_visibility='always')
     invoice_date=fields.Date()
+    delivery_date=fields.Date("Delivery Date")
     customer_id=fields.Many2one('onida_apps.customer',track_visibility='always',delegate=True,required=True)
     product_id=fields.Many2one('onida_apps.product', track_visibility='always',delegate=True,required=True)
     notes=fields.Text()

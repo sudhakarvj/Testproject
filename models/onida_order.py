@@ -15,7 +15,6 @@ class CreateOrder(models.Model):
     date_order=fields.Datetime('Order Date', track_visibility='always',default=fields.Datetime.today)
     notes=fields.Text()
     product_ids=fields.Many2many('onida_apps.product')
-    unit=fields.Integer()
     product_line_ids=fields.One2many('onida_apps.product','product_id')
     sequence_id = fields.Char('Sequence', readonly=True)
 

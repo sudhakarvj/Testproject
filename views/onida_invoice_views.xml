@@ -1,6 +1,6 @@
 <odoo>
   <data>
-    <!-- explicit list view definition -->
+    <!-- explicit invoice list view definition -->
     
     <record model="ir.ui.view" id="onida_invoice_list">
       <field name="name">onida invoice list</field>
@@ -19,7 +19,7 @@
       <field name="name">onida tax list</field>
       <field name="model">onida_apps.tax</field>
       <field name="arch" type="xml">
-        <tree>
+        <tree editable="top">
           <field name="tax_no"/>
           <field name="tax_name"/>
           <field name="tax_value"/>
@@ -27,7 +27,7 @@
       </field>
     </record>
 
-    <!-- explicit form view definition -->
+    <!-- explicit invoice form view definition -->
 
     <record model="ir.ui.view" id="onida_invoice_form">
       <field name="name">onida invoice form</field>
@@ -40,6 +40,7 @@
                     <group>
 		              <field name="invoice_no"/>
 		              <field name="invoice_date"/>
+		              <field name="delivery_date"/>
 	                  <field name="customer_id"/>
 	                  <field name="email" widget="email"/>
 	                  <field name="phone" widget="phone"/>
@@ -70,6 +71,31 @@
             </div>
         </form>
       </field>
+    </record>
+
+    <!-- explicit invoice Pivot view definition -->
+    <record id="onida_invoice_pivot" model="ir.ui.view">
+         <field name="name">invoice pivot view</field>
+         <field name="model">onida_apps.invoice</field>
+         <field name="arch" type="xml">
+             <pivot string="Invoices Analysis" disable_linking="True">
+                 <field name="product_id" type="row"/>
+                 <field name="invoice_date" type="col"/>
+                 <field name="price" type="measure"/>
+             </pivot>
+         </field>
+    </record>
+
+    <!-- explicit Graph view definition -->
+    <record id="onida_invoice_graph" model="ir.ui.view">
+         <field name="name">invoice graph view</field>
+         <field name="model">onida_apps.invoice</field>
+         <field name="arch" type="xml">
+             <graph string="Invoice Analysis">
+                 <field name="product_id"/>
+                 <field name="price" type="measure"/>
+             </graph>
+         </field>
     </record>
 
     <!-- explicit tax form view definition -->
@@ -103,7 +129,7 @@
     <record model="ir.actions.act_window" id="onida_invoice_action_window">
       <field name="name">Invoice</field>
       <field name="res_model">onida_apps.invoice</field>
-      <field name="view_mode">tree,form</field>
+      <field name="view_mode">tree,form,graph,pivot</field>
       <field name="help" type="html">
           <p class="o_view_nocontent_smiling_face">Add a new Invoice</p>
       </field>

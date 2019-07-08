@@ -6,7 +6,7 @@
       <field name="name">onida order list</field>
       <field name="model">onida_apps.order</field>
       <field name="arch" type="xml">
-        <tree>
+        <tree default_order="customer_id desc" delete="true">
           <field name="customer_id"/>
           <field name="customer_ref"/>
           <field name="product_ids" widget="many2many_tags"/>
@@ -30,7 +30,7 @@
 		          <field name="customer_id"/>
 		          <field name="customer_ref"/>
 		          <field name="customer_mobile"/>
-		          <field name="product_ids" widget="many2many_tags"/>
+		          <field name="product_ids" widget="many2many_tags" options="{'color_field':'color'}"/>
 		          <field name="date_order"/>
 		        </group>
              <notebook>
@@ -49,6 +49,18 @@
       </field>
     </record>
 
+    <!-- explicit Calendar view definition -->
+    <record model="ir.ui.view" id="onida_product_calendar">
+            <field name="name">product calendar view</field>
+            <field name="model">onida_apps.order</field>
+            <field name="arch" type="xml">
+                <calendar string="Product Orders" date_start="date_order">
+                    <field name="customer_id"/>
+                    <!-- <field name="amount_total" widget="monetary"/> -->
+                </calendar>
+            </field>
+    </record>
+
     <record id="seq_order" model="ir.sequence">
             <field name="name">order sequence</field>
             <field name="code">order.id</field>
@@ -60,7 +72,7 @@
     <record model="ir.actions.act_window" id="onida_order_action_window">
       <field name="name">Requests for Order</field>
       <field name="res_model">onida_apps.order</field>
-      <field name="view_mode">tree,form</field>
+      <field name="view_mode">tree,form,calendar</field>
       <field name="help" type="html">
            <p class="o_view_nocontent_smiling_face">Add a new customer</p>
        </field>
